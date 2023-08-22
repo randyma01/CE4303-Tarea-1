@@ -1,8 +1,24 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst unsaved.clk_0 -pg 1 -lvl 1 -y 30
-preplace inst unsaved -pg 1 -lvl 1 -y 40 -regy -20
-preplace netloc EXPORT<net_container>unsaved</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)unsaved.reset) 1 0 1 NJ
-preplace netloc EXPORT<net_container>unsaved</net_container>(SLAVE)clk_0.clk_in,(SLAVE)unsaved.clk) 1 0 1 NJ
-levelinfo -pg 1 0 50 270
-levelinfo -hier unsaved 60 90 260
+preplace inst platform.nios2_gen2_0.clock_bridge -pg 1
+preplace inst platform.nios2_gen2_0 -pg 1 -lvl 2 -y 130
+preplace inst platform.nios2_gen2_0.reset_bridge -pg 1
+preplace inst platform -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst platform.timer_0 -pg 1 -lvl 3 -y 30
+preplace inst platform.pio_switch_0 -pg 1 -lvl 3 -y 390
+preplace inst platform.rom_0 -pg 1 -lvl 3 -y 130
+preplace inst platform.ram_0 -pg 1 -lvl 3 -y 210
+preplace inst platform.pio_leds_0 -pg 1 -lvl 3 -y 290
+preplace inst platform.nios2_gen2_0.cpu -pg 1
+preplace inst platform.clk_0 -pg 1 -lvl 1 -y 330
+preplace netloc FAN_OUT<net_container>platform</net_container>(SLAVE)ram_0.reset1,(SLAVE)pio_switch_0.reset,(MASTER)clk_0.clk_reset,(SLAVE)rom_0.reset1,(SLAVE)pio_leds_0.reset,(SLAVE)nios2_gen2_0.reset,(SLAVE)timer_0.reset) 1 1 2 430 440 790
+preplace netloc EXPORT<net_container>platform</net_container>(SLAVE)platform.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>platform</net_container>(SLAVE)platform.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+preplace netloc EXPORT<net_container>platform</net_container>(SLAVE)platform.pio_leds_0_external_connection,(SLAVE)pio_leds_0.external_connection) 1 0 3 NJ 320 NJ 320 NJ
+preplace netloc POINT_TO_POINT<net_container>platform</net_container>(MASTER)nios2_gen2_0.irq,(SLAVE)timer_0.irq) 1 2 1 730
+preplace netloc POINT_TO_POINT<net_container>platform</net_container>(MASTER)nios2_gen2_0.instruction_master,(SLAVE)rom_0.s1) 1 2 1 N
+preplace netloc EXPORT<net_container>platform</net_container>(SLAVE)pio_switch_0.external_connection,(SLAVE)platform.pio_switch_0_external_connection) 1 0 3 NJ 420 NJ 420 NJ
+preplace netloc FAN_OUT<net_container>platform</net_container>(SLAVE)ram_0.s1,(SLAVE)pio_leds_0.s1,(MASTER)nios2_gen2_0.data_master,(SLAVE)timer_0.s1,(SLAVE)pio_switch_0.s1) 1 2 1 750
+preplace netloc FAN_OUT<net_container>platform</net_container>(MASTER)clk_0.clk,(SLAVE)ram_0.clk1,(SLAVE)pio_switch_0.clk,(SLAVE)timer_0.clk,(SLAVE)nios2_gen2_0.clk,(SLAVE)pio_leds_0.clk,(SLAVE)rom_0.clk1) 1 1 2 410 340 770
+levelinfo -pg 1 0 200 980
+levelinfo -hier platform 210 240 490 820 970
